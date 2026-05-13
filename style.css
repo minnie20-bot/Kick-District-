@@ -112,12 +112,13 @@ body {
 #navbar li a.active::after,
 #navbar li a:hover::after {
     content: "";
-    width: 30px;
+    width: 18px;
     height: 2px;
     background: #e63e3e;
     position: absolute;
     bottom: -4px;
-    left: 20px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 #mobile {
