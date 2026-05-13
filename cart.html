@@ -34,9 +34,9 @@
 
     <section id="page-header" class="about-header">
 
-        <h2>#Lets_Talk</h2>
+        <h2>#KickCheckout</h2>
 
-        <p>We’re here to connect, listen, and grow with you.</p>
+        <p>Ready to Checkout?</p>
 
     </section>
 
@@ -44,6 +44,7 @@
         <table width="100%">
             <thead>
                 <tr>
+                    <td>Select</td>
                     <td>Remove</td>
                     <td>Image</td>
                     <td>Product</td>
@@ -54,6 +55,7 @@
             </thead>
             <tbody id="cart-body">
                 <tr>
+                    <td><input type="checkbox" checked disabled></td>
                     <td><a href=""><i class="fas fa-trash"></i></a></td>
                     <td><img src="#" alt=""></td>
                     <td></td>
@@ -63,6 +65,21 @@
                 </tr>
             </tbody>
         </table>
+
+        <div id="cart-actions" class="cart-actions">
+            <button class="normal" id="checkoutBtn">Checkout Selected Items</button>
+            <div id="order-status" class="order-status"></div>
+        </div>
+
+        <section id="receipt" class="section-p1 receipt-section" style="display:none;">
+            <div class="receipt-card">
+                <h3>Order Receipt</h3>
+                <p id="receipt-number"></p>
+                <p id="receipt-date"></p>
+                <div id="receipt-items"></div>
+                <p class="receipt-total"><strong>Total: </strong><span id="receipt-total"></span></p>
+            </div>
+        </section>
     </section>
 
     <footer class="section-p1">

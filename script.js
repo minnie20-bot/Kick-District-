@@ -70,22 +70,29 @@ function renderCart(){
     if (cart.length === 0) {
         let emptyRow = document.createElement("tr");
         emptyRow.innerHTML = `
-            <td colspan="6" style="text-align:center; padding:20px;">Your cart is empty.</td>
+            <td colspan="7" style="text-align:center; padding:20px;">Your cart is empty.</td>
         `;
         cartBody.appendChild(emptyRow);
         return;
     }
 
     cart.forEach((item, index) => {
+        if (item.selected === undefined) {
+            item.selected = true;
+        }
+
         let price = Number(item.price) || 0;
         let qty = Number(item.quantity) || 1;
         let subtotal = price * qty;
 
-        total += subtotal;
+        if (item.selected) {
+            total += subtotal;
+        }
 
         let row = document.createElement("tr");
 
         row.innerHTML = `
+            <td><input type="checkbox" ${item.selected ? 'checked' : ''} onchange="toggleSelected(${index}, this.checked)"></td>
             <td><a href="#" onclick="removeItem(${index})"><i class="fas fa-trash"></i></a></td>
             <td><img src="${item.image || 'images/default.jpg'}" width="50" alt="${item.name}"></td>
             <td>${item.name} ${item.size ? `(Size: ${item.size})` : ""}</td>
@@ -99,15 +106,22 @@ function renderCart(){
 
     let totalRow = document.createElement("tr");
     totalRow.innerHTML = `
-        <td colspan="5"><strong>Total</strong></td>
+        <td colspan="6"><strong>Selected Total</strong></td>
         <td><strong>$${total.toFixed(2)}</strong></td>
     `;
 
     cartBody.appendChild(totalRow);
+    localStorage.setItem("cart", JSON.stringify(cart));
 }
 
 function removeItem(index){
     cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+}
+
+function toggleSelected(index, checked) {
+    cart[index].selected = checked;
     localStorage.setItem("cart", JSON.stringify(cart));
     renderCart();
 }
@@ -123,6 +137,98 @@ function updateQty(index, value){
 }
 
 renderCart();
+
+let checkoutBtn = document.getElementById("checkoutBtn");
+let orderStatus = document.getElementById("order-status");
+let receiptSection = document.getElementById("receipt");
+let receiptNumber = document.getElementById("receipt-number");
+let receiptDate = document.getElementById("receipt-date");
+let receiptItemsContainer = document.getElementById("receipt-items");
+let receiptTotal = document.getElementById("receipt-total");
+
+if (checkoutBtn) {
+    checkoutBtn.addEventListener("click", handleCheckout);
+}
+
+function updateCheckoutState() {
+    if (!checkoutBtn) return;
+    checkoutBtn.disabled = cart.length === 0;
+    checkoutBtn.style.opacity = cart.length === 0 ? "0.6" : "1";
+    checkoutBtn.style.cursor = cart.length === 0 ? "not-allowed" : "pointer";
+}
+
+function formatCurrency(value) {
+    return "$" + Number(value).toFixed(2);
+}
+
+function renderReceipt(receipt) {
+    if (!receiptSection || !receiptItemsContainer || !receiptNumber || !receiptDate || !receiptTotal) return;
+
+    receiptNumber.innerText = `Order #${receipt.orderNumber}`;
+    receiptDate.innerText = receipt.date;
+    receiptItemsContainer.innerHTML = receipt.items.map(item => `
+        <div class="receipt-item">
+            <span>${item.name} ${item.size ? `(Size ${item.size})` : ""} x${item.quantity}</span>
+            <span>${formatCurrency(item.price * item.quantity)}</span>
+        </div>
+    `).join("");
+    receiptTotal.innerText = formatCurrency(receipt.total);
+    receiptSection.style.display = "block";
+}
+
+function displayReceiptIfExists() {
+    let receipt = JSON.parse(localStorage.getItem("lastReceipt"));
+    if (!receipt) return;
+    if (orderStatus) {
+        orderStatus.textContent = "Order completed. See your receipt below.";
+    }
+    renderReceipt(receipt);
+    localStorage.removeItem("lastReceipt");
+}
+
+window.addEventListener("beforeunload", function() {
+    localStorage.removeItem("lastReceipt");
+});
+
+function handleCheckout() {
+    if (cart.length === 0) {
+        alert("Your cart is empty.");
+        return;
+    }
+
+    let selectedItems = cart.filter(item => item.selected);
+    if (selectedItems.length === 0) {
+        alert("Please select one or more items to checkout.");
+        return;
+    }
+
+    let totalAmount = selectedItems.reduce((sum, item) => sum + Number(item.price) * Number(item.quantity), 0);
+    let receipt = {
+        orderNumber: Math.floor(Math.random() * 900000) + 100000,
+        date: new Date().toLocaleString(),
+        items: selectedItems.map(item => ({
+            name: item.name,
+            size: item.size,
+            quantity: Number(item.quantity),
+            price: Number(item.price)
+        })),
+        total: totalAmount
+    };
+
+    localStorage.setItem("lastReceipt", JSON.stringify(receipt));
+    cart = cart.filter(item => !item.selected);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+    updateCheckoutState();
+    if (orderStatus) {
+        orderStatus.textContent = "Order completed for selected items. Receipt generated below.";
+    }
+    renderReceipt(receipt);
+}
+
+updateCheckoutState();
+
+displayReceiptIfExists();
 
 // add to cart
 
@@ -169,7 +275,9 @@ function addCurrentProductToCart() {
 
     localStorage.setItem("cart", JSON.stringify(cart));
     renderCart();
-    window.location.href = "cart.html";
+    if (orderStatus) {
+        orderStatus.textContent = "Item added to cart. You can continue shopping.";
+    }
 }
 
 let addToCartButtons = Array.from(document.querySelectorAll("button.normal")).filter(btn => btn.textContent.trim().toLowerCase() === "add to cart");

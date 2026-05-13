@@ -283,6 +283,27 @@ body {
     flex-wrap: wrap;
 }
 
+.product-marquee {
+    overflow: hidden;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.product-marquee .marquee-content {
+    display: flex;
+    gap: 20px;
+    animation: marquee-scroll 10s linear infinite;
+}
+
+@keyframes marquee-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
 #product1 .pro {
     width: 23%;
     min-width: 250px;
@@ -854,6 +875,61 @@ footer a:hover {
     border-collapse: collapse;
     table-layout: fixed;
     white-space: nowrap;
+}
+
+.cart-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+#checkoutBtn {
+    background-color: #088178;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 6px;
+}
+
+.order-status {
+    color: #1a7b4a;
+    font-weight: 700;
+}
+
+.receipt-section {
+    display: none;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    margin-top: 20px;
+    padding: 24px;
+}
+
+.receipt-card {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.receipt-card h3 {
+    margin-bottom: 16px;
+    color: #1a1a11;
+}
+
+.receipt-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.receipt-item:last-child {
+    border-bottom: none;
+}
+
+.receipt-total {
+    margin-top: 16px;
+    font-size: 16px;
 }
 
 
