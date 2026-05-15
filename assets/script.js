@@ -53,7 +53,6 @@ window.addEventListener("DOMContentLoaded", function () {
             productDesc.innerHTML = MainImg.dataset.desc;
         }
     }
-
 });
         
 // cart
@@ -289,7 +288,8 @@ addToCartButtons.forEach(btn => btn.addEventListener("click", addCurrentProductT
 
 
 // pagination
-let totalPages = 1; // This can be dynamically set based on your data
+
+let totalPages = 1;
 let currentPage = 1;
 
 let pagination = document.getElementById("pagination");
@@ -336,9 +336,7 @@ if (pagination) {
 }
 
 
-// blog
-
-// addPost
+// blog / addPost
 function addPost() {
     let title = document.getElementById("title").value;
     let content = document.getElementById("content").value;
@@ -367,7 +365,7 @@ function addPost() {
     reader.readAsDataURL(file);
 }
 
-// renderPosts
+// blog / renderPosts
 function renderPosts() {
     let blog = document.getElementById("blog");
     blog.innerHTML = "";
@@ -457,20 +455,26 @@ window.sendMessage = function () {
     alert("Message sent successfully!");
 };
 
-// logout
+// LOGOUT FUNCTION
 function logout(){
-    localStorage.removeItem("user");
-    alert("Logged out successfully");
+    let confirmLogout = confirm("Are you sure you want to logout?");
 
-    // redirect to homepage (clean reset)
-    window.location.href = "index.html";
+    if(confirmLogout){
+        localStorage.removeItem("user");
+        alert("Logged out successfully");
+        window.location.href = "index.html";
+    }
 }
 
-window.onload = function () {
+// CHECK LOGIN STATUS
+window.addEventListener("DOMContentLoaded", function () {
+
     let user = localStorage.getItem("user");
 
     let loginBtn = document.getElementById("loginBtn");
     let logoutBtn = document.getElementById("logoutBtn");
+
+    if (!loginBtn || !logoutBtn) return;
 
     if (user) {
         loginBtn.style.display = "none";
@@ -479,14 +483,5 @@ window.onload = function () {
         loginBtn.style.display = "inline-block";
         logoutBtn.style.display = "none";
     }
-};
-
-function logout(){
-    let confirmLogout = confirm("Are you sure you want to logout?");
-
-    if(confirmLogout){
-        localStorage.removeItem("user");
-        window.location.href = "index.html";
-    }
-}
+});
 
