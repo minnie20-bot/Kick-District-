@@ -289,7 +289,7 @@ addToCartButtons.forEach(btn => btn.addEventListener("click", addCurrentProductT
 
 
 // pagination
-let totalPages = 3; // This can be dynamically set based on your data
+let totalPages = 1; // This can be dynamically set based on your data
 let currentPage = 1;
 
 let pagination = document.getElementById("pagination");
