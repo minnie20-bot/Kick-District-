@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kick-District</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delivery Information - Kick District</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 </head>
 
 <body>
 
-    <section id="header">
+<section id="header">
         <a href="#"><img src="images/banner/Logo.png" class="logo" alt=""></a>
 
         <div>
@@ -21,8 +20,8 @@
                 <li><a href="shop.html">Shop</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a class="active" href="contact.html">Contact</a></li>
-                <li id="lg-bag"><a href="cart.html"><i class="fas fa-shopping-bag"></i></a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li id="lg-bag"><a class="active" href="cart.html"><i class="fas fa-shopping-bag"></i></a></li>
                 <a href="#" id="close"><i class="fas fa-times"></i></a>
             </ul>
         </div>
@@ -32,69 +31,56 @@
         </div>
     </section>
 
-    <section id="page-header" class="about-header">
+<header>
+    <h1>Delivery Information</h1>
+    <p>Kick District - Shipping & Delivery Details</p>
+</header>
 
-        <h2>#Lets_Talk</h2>
+<div class="container">
 
-        <p>We’re here to connect, listen, and grow with you.</p>
+    <p>Welcome to <b>Kick District</b> delivery information page. Here you can find details about shipping, delivery time, and fees.</p>
 
-    </section>
+    <h2>Shipping Areas</h2>
+    <ul>
+        <li>We deliver within the Philippines</li>
+        <li>Selected international locations (coming soon)</li>
+    </ul>
 
-    <section id="contact-details" class="section-p1">
-        <div class="details">
-            <span>GET IN TOUCH</span>
-            <h2>Head Office</h2>
-            <div>
-                <li>
-                    <i class="fas fa-map-marker-alt"></i>
-                    <p> 9P4H+R4W, Tomas Cabiles St, Tabaco City, Albay</p>
-                </li>
-            
-                <li>
-                    <i class="fas fa-envelope"></i>
-                    <p> kickdisrict@gmail.com</p>
-                </li>
-            
-                <li>
-                    <i class="fas fa-phone-alt"></i>
-                    <p> 09987683909</p>
-                </li>
-            
-                <li>
-                    <i class="fas fa-clock"></i>
-                    <p> 8:00AM-6:00PM | MON-SAT</p>
-                </li>
-            </div>
-        </div>
+    <h2>Delivery Time</h2>
+    <ul>
+        <li>Metro Manila: 1–3 business days</li>
+        <li>Provincial areas: 3–7 business days</li>
+        <li>Delays may occur during holidays or peak seasons</li>
+    </ul>
 
-        <div class="map">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7763.777434382907!2d123.
-            72676044523007!3d13.357195108874878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.
-            1!3m3!1m2!1s0x33a1adc8d49da0f7%3A0xcefff387c296331a!2sDr.%20Carlos%20S
-            .%20Lanting%20College!5e0!3m2!1sen!2sph!4v1778436934870!5m2!1sen!2sph" 
-            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-    </section>
+    <h2>Shipping Fees</h2>
+    <div class="box">
+        Standard delivery fee starts at <b>₱80</b> depending on location and order size.
+    </div>
 
-    <section id="form-details">
-    <form id="contactForm">
-        <span>LEAVE A MESSAGE</span>
-        <h2>We love to hear from you</h2>
+    <h2>Order Processing</h2>
+    <ul>
+        <li>Orders are processed within 24 hours</li>
+        <li>You will receive tracking details once shipped</li>
+        <li>Make sure your address is correct before placing order</li>
+    </ul>
 
-        <input type="text" id="name" placeholder="Your Name" required>
-        <input type="email" id="email" placeholder="E-mail" required>
-        <input type="text" id="subject" placeholder="Subject" required>
-        <textarea id="message" cols="30" rows="10" placeholder="Your Message" required></textarea>
+    <h2>Important Notes</h2>
+    <ul>
+        <li>We are not responsible for delays caused by courier services</li>
+        <li>Incomplete address may cause failed delivery</li>
+        <li>Cash on Delivery (COD) is available in selected areas</li>
+    </ul>
 
-        <button type="submit" class="normal">Submit</button>
-    </form>
+    <h2>Contact Delivery Support</h2>
+    <div class="box">
+        kickdisrict@gmail.com<br>
+        09987683909
+    </div>
 
-    <p id="status"></p>
-</section>
+</div>
 
-
-    <footer class="section-p1">
+<footer class="section-p1">
         <div class="col">
             <img class="logo" src="images/banner/Logo.png" alt="">
             <h4>Contact</h4>
@@ -156,7 +142,5 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
 </body>
-
 </html>

@@ -57,7 +57,6 @@ window.addEventListener("DOMContentLoaded", function () {
 });
 
 // cart
-
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let cartBody = document.getElementById("cart-body");
 
@@ -207,11 +206,12 @@ function handleCheckout() {
         orderNumber: Math.floor(Math.random() * 900000) + 100000,
         date: new Date().toLocaleString(),
         items: selectedItems.map(item => ({
-            name: item.name,
-            size: item.size,
-            quantity: Number(item.quantity),
-            price: Number(item.price)
-        })),
+    name: item.name,
+    size: item.size,
+    quantity: Number(item.quantity),
+    price: Number(item.price),
+    image: item.image
+})),
         total: totalAmount
     };
 
@@ -453,4 +453,36 @@ window.sendMessage = function () {
     alert("Message sent successfully!");
 };
 
+// logout
+function logout(){
+    localStorage.removeItem("user");
+    alert("Logged out successfully");
+
+    // redirect to homepage (clean reset)
+    window.location.href = "index.html";
+}
+
+window.onload = function () {
+    let user = localStorage.getItem("user");
+
+    let loginBtn = document.getElementById("loginBtn");
+    let logoutBtn = document.getElementById("logoutBtn");
+
+    if (user) {
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-block";
+    } else {
+        loginBtn.style.display = "inline-block";
+        logoutBtn.style.display = "none";
+    }
+};
+
+function logout(){
+    let confirmLogout = confirm("Are you sure you want to logout?");
+
+    if(confirmLogout){
+        localStorage.removeItem("user");
+        window.location.href = "index.html";
+    }
+}
 

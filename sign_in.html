@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Kick District</title>
+
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', Arial, sans-serif;
+            background: linear-gradient(135deg, #111, #333);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* LOGIN BOX */
+        .login-box {
+            background: #fff;
+            padding: 35px;
+            width: 380px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        /* TITLE */
+        .login-box h2 {
+            margin-bottom: 20px;
+            font-size: 26px;
+            color: #111;
+        }
+
+        /* INPUTS */
+        .login-box input {
+            width: 100%;
+            padding: 12px 14px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .login-box input:focus {
+            border-color: #111;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* BUTTON */
+        .login-box button {
+            width: 100%;
+            padding: 12px;
+            background: #111;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .login-box button:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
+
+        /* TEXT */
+        .login-box p {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* LINK */
+        .login-box a {
+            color: #111;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-box a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-box">
+        <h2>Sign In</h2>
+
+        <input type="text" id="username" placeholder="Username or Email">
+        <input type="password" id="password" placeholder="Password">
+
+        <button onclick="login()">Login</button>
+
+        <p>Don't have an account? <a href="#">Sign up</a></p>
+    </div>
+
+    <script>
+        function login() {
+            let user = document.getElementById("username").value;
+            let pass = document.getElementById("password").value;
+
+            if (user === "" || pass === "") {
+                alert("Please fill in all fields");
+                return;
+            }
+
+            // FIXED KEY
+            localStorage.setItem("user", user);
+
+            alert("Login successful!");
+            window.location.href = "index.html";
+        }
+    </script>
+
+</body>
+
+</html>

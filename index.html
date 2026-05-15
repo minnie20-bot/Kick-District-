@@ -17,14 +17,24 @@
 
         <div>
             <ul id="navbar">
-                <li><a class="active" href="index.html">Home</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li id="lg-bag"><a href="cart.html"><i class="fas fa-shopping-bag"></i></a></li>
-                <a href="#" id="close"><i class="fas fa-times"></i></a>
-            </ul>
+    <li><a class="active" href="index.html">Home</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+
+    <li id="lg-bag">
+        <a href="cart.html"><i class="fas fa-shopping-bag"></i></a>
+    </li>
+
+    <li id="loginBtn">
+        <a href="sign_in.html" class="auth-btn sign-in">Sign In</a>
+    </li>
+
+    <li id="logoutBtn">
+        <a href="#" class="auth-btn logout" onclick="logout()">Logout</a>
+    </li>
+</ul>
         </div>
         <div id="mobile">
             <a href="cart.html"><i class="fas fa-shopping-bag"></i></a>
@@ -278,7 +288,7 @@
 
         <div class="col">
             <h4>My Accounts</h4>
-            <a href="">Sign In</a>
+            <a href="sign_in.html">Sign In</a>
             <a href="cart.html">View Cart</a>
             <a href="helps.html">Helps</a>
         </div>
@@ -294,6 +304,24 @@
             <img src="images/app/gateway.jpg" alt="">
         </div>
     </footer>
+
+   <script>
+function login(){
+    let user = document.getElementById("username").value;
+    let pass = document.getElementById("password").value;
+
+    if(user === "" || pass === ""){
+        alert("Please fill in all fields");
+        return;
+    }
+
+    // SAVE USER LOGIN
+    localStorage.setItem("user", user);
+
+    alert("Login successful!");
+    window.location.href = "index.html";
+}
+</script>
 
     <script src="script.js"></script>
 </body>
