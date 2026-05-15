@@ -55,7 +55,7 @@ window.addEventListener("DOMContentLoaded", function () {
     }
 
 });
-
+        
 // cart
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let cartBody = document.getElementById("cart-body");
@@ -69,7 +69,7 @@ function renderCart(){
     if (cart.length === 0) {
         let emptyRow = document.createElement("tr");
         emptyRow.innerHTML = `
-            <td colspan="7" style="text-align:center; padding:20px;">Your cart is empty.</td>
+            <td colspan="8" style="text-align:center; padding:20px;">Your cart is empty.</td>
         `;
         cartBody.appendChild(emptyRow);
         return;
@@ -91,21 +91,22 @@ function renderCart(){
         let row = document.createElement("tr");
 
         row.innerHTML = `
-            <td><input type="checkbox" ${item.selected ? 'checked' : ''} onchange="toggleSelected(${index}, this.checked)"></td>
-            <td><a href="#" onclick="removeItem(${index})"><i class="fas fa-trash"></i></a></td>
-            <td><img src="${item.image || 'images/default.jpg'}" width="50" alt="${item.name}"></td>
-            <td>${item.name} ${item.size ? `(Size: ${item.size})` : ""}</td>
-            <td>$${price.toFixed(2)}</td>
-            <td><input type="number" min="1" value="${qty}" onchange="updateQty(${index}, this.value)"></td>
-            <td>$${subtotal.toFixed(2)}</td>
-        `;
+    <td><input type="checkbox" ${item.selected ? 'checked' : ''} onchange="toggleSelected(${index}, this.checked)"></td>
+    <td><a href="#" onclick="removeItem(${index})"><i class="fas fa-trash"></i></a></td>
+    <td><img src="${item.image || 'images/default.jpg'}" width="50"></td>
+    <td>${item.name}</td>
+    <td>${item.size || "-"}</td>
+    <td>$${price.toFixed(2)}</td>
+    <td><input type="number" min="1" value="${qty}" onchange="updateQty(${index}, this.value)"></td>
+    <td>$${subtotal.toFixed(2)}</td>
+`;
 
         cartBody.appendChild(row);
     });
 
     let totalRow = document.createElement("tr");
     totalRow.innerHTML = `
-        <td colspan="6"><strong>Selected Total</strong></td>
+        <td colspan="7"><strong>Selected Total</strong></td>
         <td><strong>$${total.toFixed(2)}</strong></td>
     `;
 
@@ -166,11 +167,14 @@ function renderReceipt(receipt) {
     receiptNumber.innerText = `Order #${receipt.orderNumber}`;
     receiptDate.innerText = receipt.date;
     receiptItemsContainer.innerHTML = receipt.items.map(item => `
-        <div class="receipt-item">
-            <span>${item.name} ${item.size ? `(Size ${item.size})` : ""} x${item.quantity}</span>
-            <span>${formatCurrency(item.price * item.quantity)}</span>
+    <div class="receipt-item">
+        <img src="${item.image || 'images/default.jpg'}" alt="${item.name}">
+        <div>
+            <div>${item.name} ${item.size ? `(Size ${item.size})` : ""} x${item.quantity}</div>
+            <small>${formatCurrency(item.price * item.quantity)}</small>
         </div>
-    `).join("");
+    </div>
+`).join("");
     receiptTotal.innerText = formatCurrency(receipt.total);
     receiptSection.style.display = "block";
 }
