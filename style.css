@@ -877,6 +877,34 @@ footer a:hover {
     white-space: nowrap;
 }
 
+#cart table input[type="number"] {
+    width: 60px;
+    height: 40px;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+}
+
+#cart table input[type="number"]:focus {
+    outline: none;
+    border-color: #088178;
+    box-shadow: 0 0 5px rgba(8, 129, 120, 0.2);
+}
+
+/* Remove default spinner arrows for Firefox */
+#cart table input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Remove default spinner arrows for Chrome, Safari */
+#cart table input[type="number"]::-webkit-outer-spin-button,
+#cart table input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .cart-actions {
     display: flex;
     align-items: center;
@@ -1071,6 +1099,85 @@ footer a:hover {
         padding: 20px;
     }
 }
+
+/* help */
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: #f4f4f4;
+    }
+
+    header {
+        background: #e46124;
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .container {
+        width: 80%;
+        margin: auto;
+        padding: 20px;
+    }
+
+    /* SEARCH */
+    .search-box {
+        margin-bottom: 20px;
+    }
+
+    .search-box input {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    /* FAQ */
+    .faq {
+        background: white;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .question {
+        padding: 15px;
+        cursor: pointer;
+        background: #eee;
+        font-weight: bold;
+    }
+
+    .answer {
+        padding: 15px;
+        display: none;
+        background: white;
+    }
+
+    /* CONTACT */
+    .contact {
+        margin-top: 30px;
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+    .contact input, .contact textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .contact button {
+        background: #222;
+        color: white;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+    }
+
+
 
 /*single product*/
 

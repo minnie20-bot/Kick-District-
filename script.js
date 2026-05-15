@@ -285,7 +285,7 @@ addToCartButtons.forEach(btn => btn.addEventListener("click", addCurrentProductT
 
 
 // pagination
-let totalPages = 5; // pwede mo baguhin kung ilan pages mo
+let totalPages = 3; // This can be dynamically set based on your data
 let currentPage = 1;
 
 let pagination = document.getElementById("pagination");
@@ -395,24 +395,62 @@ window.onload = function() {
 
 // cart
 
-document.getElementById("contactForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+const helpForm = document.getElementById("contactForm");
+if (helpForm) {
+    helpForm.addEventListener("submit", function (e) {
+        e.preventDefault();
 
-    let name = document.getElementById("name").value;
-    let email = document.getElementById("email").value;
-    let subject = document.getElementById("subject").value;
-    let message = document.getElementById("message").value;
+        let name = document.getElementById("name").value;
+        let email = document.getElementById("email").value;
+        let subject = document.getElementById("subject").value;
+        let message = document.getElementById("message").value;
 
-    if(name && email && subject && message){
-        document.getElementById("status").innerText = "Message sent successfully!";
+        if (name && email && subject && message) {
+            const statusEl = document.getElementById("status");
+            if (statusEl) {
+                statusEl.innerText = "Message sent successfully!";
+            }
+            console.log("Name:", name);
+            console.log("Email:", email);
+            console.log("Subject:", subject);
+            console.log("Message:", message);
+            this.reset();
+        } else {
+            const statusEl = document.getElementById("status");
+            if (statusEl) {
+                statusEl.innerText = "Please fill all fields.";
+            }
+        }
+    });
+}
 
-        console.log("Name:", name);
-        console.log("Email:", email);
-        console.log("Subject:", subject);
-        console.log("Message:", message);
+const faqQuestions = document.querySelectorAll(".question");
+if (faqQuestions.length > 0) {
+    faqQuestions.forEach(q => {
+        q.addEventListener("click", () => {
+            const answer = q.nextElementSibling;
+            if (answer) {
+                answer.style.display = (answer.style.display === "block") ? "none" : "block";
+            }
+        });
+    });
+}
 
-        this.reset();
-    } else {
-        document.getElementById("status").innerText = "Please fill all fields.";
-    }
-});
+const searchInput = document.getElementById("search");
+if (searchInput) {
+    searchInput.addEventListener("keyup", function () {
+        let filter = this.value.toLowerCase();
+        let faqs = document.querySelectorAll(".faq");
+
+        faqs.forEach(faq => {
+            let text = faq.innerText.toLowerCase();
+            faq.style.display = text.includes(filter) ? "block" : "none";
+        });
+    });
+}
+
+window.sendMessage = function () {
+    alert("Message sent successfully!");
+};
+
+
