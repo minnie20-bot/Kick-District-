@@ -1345,7 +1345,7 @@ footer a:hover {
     }
 
     header{
-        background-image: url("assets/images/banners/ban.jpg");
+        background-image: url("images/banner/ban.jpg");
         background-size: cover;
         color:#fff;
         padding:40px 20px;
