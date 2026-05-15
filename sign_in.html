@@ -21,7 +21,7 @@
         /* LOGIN BOX */
         .login-box {
             background: #fff;
-            padding: 35px;
+            padding: 40px 30px;
             width: 380px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -45,6 +45,7 @@
             outline: none;
             transition: 0.3s;
             font-size: 14px;
+            box-sizing: border-box;
         }
 
         .login-box input:focus {
@@ -71,14 +72,6 @@
             background: #333;
             transform: translateY(-2px);
         }
-
-        /* TEXT */
-        .login-box p {
-            margin-top: 15px;
-            font-size: 14px;
-            color: #555;
-        }
-
         /* LINK */
         .login-box a {
             color: #111;
@@ -89,6 +82,34 @@
         .login-box a:hover {
             text-decoration: underline;
         }
+
+        /* RESPONSIVE */
+@media (max-width: 480px) {
+    body {
+        padding: 20px;
+    }
+
+    .login-box {
+        width: 100%;
+        max-width: 320px;
+        padding: 30px 20px;
+        border-radius: 12px;
+    }
+
+    .login-box h2 {
+        font-size: 22px;
+    }
+
+    .login-box input {
+        font-size: 13px;
+        padding: 11px 12px;
+    }
+
+    .login-box button {
+        font-size: 14px;
+        padding: 11px;
+    }
+}
     </style>
 </head>
 
@@ -101,8 +122,6 @@
         <input type="password" id="password" placeholder="Password">
 
         <button onclick="login()">Login</button>
-
-        <p>Don't have an account? <a href="#">Sign up</a></p>
     </div>
 
     <script>
