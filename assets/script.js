@@ -92,7 +92,7 @@ function renderCart(){
         row.innerHTML = `
     <td><input type="checkbox" ${item.selected ? 'checked' : ''} onchange="toggleSelected(${index}, this.checked)"></td>
     <td><a href="#" onclick="removeItem(${index})"><i class="fas fa-trash"></i></a></td>
-    <td><img src="${item.image || 'images/default.jpg'}" width="50"></td>
+    <td><img src="${item.image || 'assets/images/default.jpg'}" width="50"></td>
     <td>${item.name}</td>
     <td>${item.size || "-"}</td>
     <td>$${price.toFixed(2)}</td>
@@ -167,7 +167,7 @@ function renderReceipt(receipt) {
     receiptDate.innerText = receipt.date;
     receiptItemsContainer.innerHTML = receipt.items.map(item => `
     <div class="receipt-item">
-        <img src="${item.image || 'images/default.jpg'}" alt="${item.name}">
+        <img src="${item.image || 'assets/images/default.jpg'}" alt="${item.name}">
         <div>
             <div>${item.name} ${item.size ? `(Size ${item.size})` : ""} x${item.quantity}</div>
             <small>${formatCurrency(item.price * item.quantity)}</small>
@@ -239,8 +239,8 @@ function addCurrentProductToCart() {
     let productNameEl = document.getElementById("productName");
     let productPriceEl = document.getElementById("productPrice");
     let productDescEl = document.getElementById("productDesc");
-    let quantityInput = document.querySelector("input[type='number']");
-    let sizeSelect = document.querySelector("select");
+    let quantityInput = document.querySelector("#prodetails input[type='number']");
+    let sizeSelect = document.querySelector("#prodetails select");
     let mainImg = document.getElementById("MainImg");
 
     if (!productNameEl || !productPriceEl || !quantityInput || !sizeSelect) {
@@ -251,12 +251,12 @@ function addCurrentProductToCart() {
     let price = productPriceEl.innerText.replace(/[^0-9\.]/g, "");
     let qty = Number(quantityInput.value) || 1;
     let size = sizeSelect.value;
-    let image = mainImg ? mainImg.src : "images/default.jpg";
+    let image = mainImg ? mainImg.src : "assets/images/default.jpg";
 
-    if (size === "Select size"){
-        alert("Please select a size.");
-        return;
-    }
+    if (!size) {
+    alert("Please select a size.");
+    return;
+}
 
     if (qty < 1) {
         qty = 1;
@@ -269,7 +269,7 @@ function addCurrentProductToCart() {
     } else {
         cart.push({
             name: name,
-            price: Number(price).toFixed(2),
+            price: Number(price),
             quantity: qty,
             size: size,
             image: image
@@ -283,9 +283,11 @@ function addCurrentProductToCart() {
     }
 }
 
-let addToCartButtons = Array.from(document.querySelectorAll("button.normal")).filter(btn => btn.textContent.trim().toLowerCase() === "add to cart");
-addToCartButtons.forEach(btn => btn.addEventListener("click", addCurrentProductToCart));
+let addToCartBtn = document.getElementById("addToCartBtn");
 
+if (addToCartBtn) {
+    addToCartBtn.addEventListener("click", addCurrentProductToCart);
+}
 
 // pagination
 
