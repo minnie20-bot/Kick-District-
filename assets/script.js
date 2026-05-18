@@ -58,6 +58,8 @@ window.addEventListener("DOMContentLoaded", function () {
 // cart
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let cartBody = document.getElementById("cart-body");
+let currentBlogPage = 1;
+const postsPerPage = 3;
 
 function renderCart(){
     if (!cartBody) return;
@@ -361,36 +363,119 @@ function addPost() {
 
         localStorage.setItem("posts", JSON.stringify(posts));
 
+        currentBlogPage = 1;
         renderPosts();
+        clearBlogForm();
     };
 
     reader.readAsDataURL(file);
 }
 
+function clearBlogForm() {
+    document.getElementById("title").value = "";
+    document.getElementById("content").value = "";
+    document.getElementById("imageInput").value = "";
+}
+
+function setBlogPage(page) {
+    currentBlogPage = page;
+    renderPosts();
+}
+
+function renderBlogPagination(totalPages) {
+    let pagination = document.getElementById("pagination");
+    if (!pagination) return;
+
+    pagination.innerHTML = "";
+    if (totalPages <= 1) return;
+
+    let prevLink = document.createElement("a");
+    prevLink.href = "#";
+    prevLink.innerText = "‹";
+    prevLink.onclick = function(e) {
+        e.preventDefault();
+        if (currentBlogPage > 1) {
+            setBlogPage(currentBlogPage - 1);
+        }
+    };
+    pagination.appendChild(prevLink);
+
+    for (let i = 1; i <= totalPages; i++) {
+        let pageLink = document.createElement("a");
+        pageLink.href = "#";
+        pageLink.innerText = i;
+        if (i === currentBlogPage) {
+            pageLink.style.backgroundColor = "#0a8a7d";
+        }
+        pageLink.onclick = function(e) {
+            e.preventDefault();
+            setBlogPage(i);
+        };
+        pagination.appendChild(pageLink);
+    }
+
+    let nextLink = document.createElement("a");
+    nextLink.href = "#";
+    nextLink.innerText = "›";
+    nextLink.onclick = function(e) {
+        e.preventDefault();
+        if (currentBlogPage < totalPages) {
+            setBlogPage(currentBlogPage + 1);
+        }
+    };
+    pagination.appendChild(nextLink);
+}
+
 // blog / renderPosts
 function renderPosts() {
     let blog = document.getElementById("blog");
+    if (!blog) return;
     blog.innerHTML = "";
 
     let posts = JSON.parse(localStorage.getItem("posts")) || [];
+    let totalPages = Math.max(1, Math.ceil(posts.length / postsPerPage));
+    if (currentBlogPage > totalPages) {
+        currentBlogPage = totalPages;
+    }
 
-    posts.forEach(post => {
-        let div = document.createElement("div");
-        div.classList.add("blog-box");
+    let startIndex = (currentBlogPage - 1) * postsPerPage;
+    let pagePosts = posts.slice(startIndex, startIndex + postsPerPage);
 
-        div.innerHTML = `
-            <div class="blog-img">
-                <img src="${post.image}">
-            </div>
-            <div class="blog-details">
-                <h4>${post.title}</h4>
-                <p>${post.content}</p>
-                <a href="#">CONTINUE READING</a>
-            </div>
-        `;
+    if (pagePosts.length === 0) {
+        blog.innerHTML = `<p style="text-align:center; padding: 40px 0; color:#777;">No blog posts yet. Add one above to get started.</p>`;
+    } else {
+        pagePosts.forEach((post, idx) => {
+            let realIndex = startIndex + idx;
+            let div = document.createElement("div");
+            div.classList.add("blog-box");
 
-        blog.appendChild(div);
-    });
+            div.innerHTML = `
+                <div class="blog-img">
+                    <img src="${post.image}">
+                </div>
+                <div class="blog-details">
+                    <h4>${post.title}</h4>
+                    <p>${post.content}</p>
+                    <div class="blog-actions">
+                        <a href="#" class="delete-post" onclick="deletePost(${realIndex}); return false;">DELETE</a>
+                    </div>
+                </div>
+            `;
+
+            blog.appendChild(div);
+        });
+    }
+
+    renderBlogPagination(totalPages);
+}
+
+function deletePost(index) {
+    let posts = JSON.parse(localStorage.getItem("posts")) || [];
+    if (index < 0 || index >= posts.length) return;
+
+    posts.splice(index, 1);
+    localStorage.setItem("posts", JSON.stringify(posts));
+    renderPosts();
 }
 
 window.onload = function() {
